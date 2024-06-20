@@ -1,0 +1,53 @@
+.header {
+  position: relative;
+  height: auto;
+  display: flex;
+	padding: 32px 188px;
+  background-color: var(--violet);
+}
+
+.auth {
+  position: absolute;
+  top: 32px;
+  right: 80px;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 16px;
+	padding: 32px 109px;
+}
+
+.button_back {
+	position: absolute;
+  top: 32px;
+  left: 80px;
+}
+
+@media (max-width: 1000px) {
+  .header {
+    padding: 32px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  
+  
+  .auth {
+    top: 12px;
+    right: 16px;
+  }
+
+  .title {
+    flex: 1;
+    padding: 0 ;
+  }
+
+  .button_back {
+	
+  top: 12px;
+  left: 16px;
+}
+}

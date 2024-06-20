@@ -1,0 +1,63 @@
+.root {
+  width: 305px;
+  height: 263px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+  padding: 36px 0 20px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px 0 rgba(51, 51, 51, 0.15);
+  background: var(--white);
+  transition: all 0.2s linear;
+
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+
+  &:hover {
+    border: 1px solid var(--black);
+    transition: all 0.2s linear;
+  }
+}
+
+.active_card {
+  border: 1px solid var(--black);
+  transition: all 0.2s linear;
+}
+
+.card_image {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.like_container {
+	align-self: flex-end;
+	width: 30px;
+	height: 28px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 20px;
+	border-radius: 4px;
+	background-color: var(--gray_light);
+	cursor: pointer;
+
+	&:hover {
+		svg {
+			transform: scale(1.1);
+		}
+	}
+}
+
+.liked {
+	svg {
+		fill: #512689
+	}
+}

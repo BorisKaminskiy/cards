@@ -1,0 +1,43 @@
+.root {
+	max-width: 1135px;
+	display: flex;
+	justify-content: space-between;
+	padding-top: 49px;
+	padding-left: 188px;
+}
+
+.text {
+	max-width: 630px;
+}
+
+.contacts {
+	max-width: auto;
+	display: flex;
+	flex-direction: column;
+	row-gap: 24px;
+}
+
+.contact {
+	display: flex;
+	column-gap: 8px;
+}
+
+@media (max-width: 1200px) {
+	.root {
+		flex-direction: column-reverse;
+		row-gap: 32px;
+		padding: 16px 32px;
+	}
+
+	.text {
+		flex: 1;
+		max-width: 100%;
+	}
+}
+
+@media (max-width: 600px) {
+	.root {
+		padding: 16px;
+	}
+}
+

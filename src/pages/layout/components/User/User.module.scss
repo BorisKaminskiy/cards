@@ -1,0 +1,32 @@
+.root {
+  max-width: 664px;
+  display: flex;
+  align-items: center;
+  column-gap: 32px;
+}
+
+.avatar {
+  width: 187px;
+  height: 187px;
+  border-radius: 50%;
+}
+
+.user_info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .root {
+		max-width: 100vw;
+    width: 100vw;
+		flex-direction: column-reverse;
+		row-gap: 16px;
+		
+  }
+
+	.user_info {
+		align-items: center;
+	}
+}
