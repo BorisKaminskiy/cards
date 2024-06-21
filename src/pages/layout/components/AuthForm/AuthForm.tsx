@@ -79,7 +79,7 @@ const AuthForm: FC<IAuthFormProps> = ({ ...props }) => {
   }, [errors]);
 
   const onToggleButtonClick = () => {
-    setOpen(!isOpen);
+    setOpen(() => !isOpen);
   };
 
   const onChange = (key: string, value: string) => {

@@ -5,10 +5,10 @@ import {
   useState,
   useEffect,
 } from "react";
-import { useAppDispatch } from '../../../../store/store';
-import { setId } from '../../../../store/slices/activeUser/activeUser';
+import { useAppDispatch } from "../../../../store/store";
+import { setId } from "../../../../store/slices/activeUser/activeUser";
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 import { useGetUsersQuery } from "../../../../store/api/usersApi";
 import { useWindowSize } from "../../../../hooks/useWindowResize";
 import { Portal } from "../../../layout/components/Portal/Portal";
@@ -19,53 +19,61 @@ import {
 import Card from "../Card/Card";
 import cn from "classnames";
 import styles from "./CardsContainer.module.scss";
-import Typography from '../../../../ui/Typography/Typography';
-import Button from '../../../../ui/Button/Button';
+import Typography from "../../../../ui/Typography/Typography";
+import Button from "../../../../ui/Button/Button";
 
 interface ICardsContainerProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
 const CardsContainer: FC<ICardsContainerProps> = ({ ...props }) => {
-	const navigate = useNavigate()
-	const dispatch = useAppDispatch()
-	const likesSet = new Set(getLikesFromLocalStorage());
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  // const likesSet = new Set(getLikesFromLocalStorage());
+  // const likesArray = getLikesFromLocalStorage();
+  const [likes, setLikes] = useState<number[]>(getLikesFromLocalStorage());
 
-  const [likes, setLikes] = useState<Set<number>>(likesSet);
+  // const [likes, setLikes] = useState<Set<number>>(likesSet);
   const [page, setPage] = useState<number>(1);
   const [per_page, setPer_page] = useState<number>(8);
   const { data, isFetching, isError } = useGetUsersQuery({ page, per_page });
-	const width = useWindowSize().width;
-	
-	useEffect(() => {
-		dispatch(setId(null))
-	})
+  const width = useWindowSize().width;
 
   useEffect(() => {
-    width && width >= 1400 && setPer_page(8);
-    width && width < 1400 && width >= 1080 && setPer_page(6);
-    width && width < 1080 && setPer_page(4);
+    dispatch(setId(null));
+  });
+
+  useEffect(() => {
+    setLikesToLocalStorage(likes);
+  }, [likes]);
+
+  useEffect(() => {
+    if (width && width >= 1400) {
+      setPer_page(8);
+    }
+    if (width && width < 1400 && width >= 1080) {
+      setPer_page(6);
+    }
+    if (width && width < 1080) {
+      setPer_page(4);
+    }
   }, [width]);
 
   const onLikeClick = (id: number) => () => {
-    if (likes.has(id)) {
-      likesSet.delete(id);
-      setLikes(likesSet);
-    } else {
-      likesSet.add(id);
-      setLikes(likesSet);
-    }
-
-    setLikesToLocalStorage(Array.from(likesSet));
+    likes.includes(id)
+      ? setLikes(likes.filter((item) => item !== id))
+      : setLikes([...likes, id]);
   };
 
-	const onCardClick = (id: number) => () => {
-		dispatch(setId(id))
-		navigate(`/user/${id}`)
-	};
-	
-	const onPaginationClick = () => {
-		(data?.total_pages && page < data.total_pages) ? setPage(page + 1) : setPage(1)  
-	}
+  const onCardClick = (id: number) => () => {
+    dispatch(setId(id));
+    navigate(`/user/${id}`);
+  };
+
+  const onPaginationClick = () => {
+    data?.total_pages && page < data.total_pages
+      ? setPage(page + 1)
+      : setPage(1);
+  };
 
   return (
     <div className={cn(styles.root)} {...props}>
@@ -79,15 +87,17 @@ const CardsContainer: FC<ICardsContainerProps> = ({ ...props }) => {
             <Card
               onCardClick={onCardClick(item.id)}
               onLikeClick={onLikeClick(item.id)}
-              isLiked={likes.has(item.id)}
+              isLiked={likes.includes(item.id)}
               value={item}
               key={item.id}
             />
           ))}
-			</div>
-			<div className={ cn(styles.pagination) }>
-				<Button onClick={onPaginationClick} variant='primary' color='black'>Показать еще</Button>
-			</div>
+      </div>
+      <div className={cn(styles.pagination)}>
+        <Button onClick={onPaginationClick} variant='primary' color='black'>
+          Показать еще
+        </Button>
+      </div>
     </div>
   );
 };

@@ -13,19 +13,19 @@ interface IIconProps {
   name: TIcons;
 }
 
+const icons = {
+  auth: <AuthIcon />,
+  exit: <ExitIcon />,
+  passwordNotShow: <PasswordNotShowIcon />,
+  passwordShow: <PasswordShowIcon />,
+  like: <LikeIcon />,
+  back: <BackIcon />,
+  phone: <PhoneIcon />,
+  email: <EmailIcon />,
+};
+
 const Icon: FC<IIconProps> = ({ name }) => {
-  return (
-    <>
-      {name === "auth" && <AuthIcon />}
-      {name === "exit" && <ExitIcon />}
-      {name === "passwordNotShow" && <PasswordNotShowIcon />}
-      {name === "passwordShow" && <PasswordShowIcon />}
-      {name === "like" && <LikeIcon />}
-      {name === "back" && <BackIcon />}
-      {name === "phone" && <PhoneIcon />}
-      {name === "email" && <EmailIcon />}
-    </>
-  );
+  return <>{name in icons && icons[name]}</>;
 };
 
 export default Icon;
