@@ -33,7 +33,9 @@
 }
 
 @media (max-width: 768px) {
-  
+  .header {
+    padding: 64px 16px;
+  }
   
   .auth {
     top: 12px;

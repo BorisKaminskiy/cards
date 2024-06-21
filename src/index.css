@@ -19,11 +19,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
 }
 
-@media (max-width: 359px) {
+@media (max-width: 320px) {
   body {
     display: none;
   }
-
-  }
+}
